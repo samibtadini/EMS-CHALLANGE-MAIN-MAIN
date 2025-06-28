@@ -35,7 +35,6 @@ export async function action({ request, params }: any) {
   const db = await getDB();
   const formData = await request.formData();
   
-  // Get current employee data first
   const employeeId = parseInt(params.employeeId, 10);
   const currentEmployee = await db.get("SELECT * FROM employees WHERE id = ?", employeeId);
   
@@ -43,7 +42,7 @@ export async function action({ request, params }: any) {
     throw new Error("Employee not found");
   }
 
-  // Get form values
+
   const full_name = formData.get("full_name")?.toString() || "";
   const email = formData.get("email")?.toString() || "";
   const phone = formData.get("phone")?.toString() || "";
@@ -53,12 +52,12 @@ export async function action({ request, params }: any) {
   const salary = formData.get("salary")?.toString() || "";
   const start_date = formData.get("start_date")?.toString() || "";
   
-  // Get files
+  
   const photo = formData.get("photo") as File | null;
   const cv = formData.get("cv") as File | null;
   const id_document = formData.get("id_document") as File | null;
 
-  // Basic validation
+ 
   const errors: FormErrors = {};
   if (!full_name.trim()) errors.full_name = "Full name is required";
   if (!email.trim()) errors.email = "Email is required";
@@ -67,13 +66,12 @@ export async function action({ request, params }: any) {
   if (!salary.trim()) errors.salary = "Salary is required";
   if (!start_date.trim()) errors.start_date = "Start date is required";
 
-  // Initialize with current paths
+  
   let photoPath = currentEmployee.photo_path;
   let cvPath = currentEmployee.cv_path;
   let idDocumentPath = currentEmployee.id_path;
 
   try {
-    // Handle file uploads only if new files are provided
     if (photo && photo.size > 0) {
       photoPath = await handleFileUpload(photo, 'photo');
     }
@@ -94,7 +92,7 @@ export async function action({ request, params }: any) {
     return { errors };
   }
 
-  // Update employee
+  
   await db.run(
     `UPDATE employees SET
       full_name = ?,
@@ -143,7 +141,7 @@ export default function EditEmployeePage() {
           <Form method="post" encType="multipart/form-data">
             <div className="row">
               <div className="col-md-6">
-                {/* Personal Information */}
+               
                 <div className="mb-4">
                   <h3 className="h5 mb-3 text-primary">Personal Information</h3>
                   
@@ -208,7 +206,6 @@ export default function EditEmployeePage() {
               </div>
               
               <div className="col-md-6">
-                {/* Employment Information */}
                 <div className="mb-4">
                   <h3 className="h5 mb-3 text-primary">Employment Information</h3>
                   
@@ -276,8 +273,6 @@ export default function EditEmployeePage() {
                 </div>
               </div>
             </div>
-            
-            {/* Documents Section */}
             <div className="mb-4">
               <h3 className="h5 mb-3 text-primary">Documents</h3>
               <div className="row">

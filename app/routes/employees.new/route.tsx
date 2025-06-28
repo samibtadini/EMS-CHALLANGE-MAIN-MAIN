@@ -20,7 +20,6 @@ type FormErrors = {
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
 
-  // Get form values
   const full_name = formData.get("full_name")?.toString() || "";
   const email = formData.get("email")?.toString() || "";
   const phone = formData.get("phone")?.toString() || "";
@@ -35,7 +34,6 @@ export const action: ActionFunction = async ({ request }) => {
 
   const errors: FormErrors = {};
 
-  // Validation
   if (!full_name.trim()) errors.full_name = "Full name is required";
   if (!email.trim()) errors.email = "Email is required";
   if (!job_title.trim()) errors.job_title = "Job title is required";
@@ -46,19 +44,16 @@ export const action: ActionFunction = async ({ request }) => {
   if (!cv || cv.size <= 0) errors.cv = "CV is required";
   if (!id_document || id_document.size <= 0) errors.id_document = "ID document is required";
 
-  // Email format validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (email && !emailRegex.test(email)) {
     errors.email = "Please enter a valid email address";
   }
 
-  // Phone format validation
   const phoneRegex = /^(\d{3}-\d{3}-\d{4})?$/;
   if (phone && !phoneRegex.test(phone)) {
     errors.phone = "Phone must be in XXX-XXX-XXXX format";
   }
 
-  // Age validation
   if (date_of_birth) {
     const dob = new Date(date_of_birth);
     const today = new Date();
@@ -74,7 +69,6 @@ export const action: ActionFunction = async ({ request }) => {
     }
   }
 
-  // Salary validation
   const minWage = 15000;
   const salaryValue = parseFloat(salary);
   if (salary && (isNaN(salaryValue) || salaryValue < minWage)) {
@@ -107,7 +101,6 @@ export const action: ActionFunction = async ({ request }) => {
     };
   }
 
-  // Handle file uploads
   let photo_path, cv_path, id_path;
 
   try {
@@ -124,7 +117,6 @@ export const action: ActionFunction = async ({ request }) => {
     };
   }
 
-  // Insert into database
   const db = await getDB();
   await db.run(
     `INSERT INTO employees (
@@ -171,7 +163,6 @@ export default function NewEmployeePage() {
         <div className="card-body">
           <Form method="post" encType="multipart/form-data">
             <div className="row">
-              {/* Personal Information Column */}
               <div className="col-md-6">
                 <h3 className="h5 mb-3 text-primary">Personal Information</h3>
                 
@@ -231,7 +222,6 @@ export default function NewEmployeePage() {
                 </div>
               </div>
               
-              {/* Professional Information Column */}
               <div className="col-md-6">
                 <h3 className="h5 mb-3 text-primary">Professional Information</h3>
                 
@@ -297,8 +287,7 @@ export default function NewEmployeePage() {
                 </div>
               </div>
             </div>
-            
-            {/* Documents Section */}
+  
             <div className="mt-4">
               <h3 className="h5 mb-3 text-primary">Required Documents</h3>
               <div className="row">

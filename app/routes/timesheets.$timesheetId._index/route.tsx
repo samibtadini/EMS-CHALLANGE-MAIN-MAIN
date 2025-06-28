@@ -18,7 +18,6 @@ export async function action({ request, params }: any) {
   const startTime = formData.get('start_time') as string;
   const endTime = formData.get('end_time') as string;
 
-  // Validate that start time is before end time
   if (new Date(startTime) >= new Date(endTime)) {
     return {
       error: "End time must be after start time"
@@ -39,7 +38,6 @@ export default function CreateTimesheet() {
   const { timesheetId } = useParams();
   const actionData = useActionData() as { error?: string };
 
-  // Helper to get current datetime in format for datetime-local input
   const getCurrentDatetime = () => {
     const now = new Date();
     return new Date(now.getTime() - now.getTimezoneOffset() * 60000)
@@ -47,7 +45,6 @@ export default function CreateTimesheet() {
       .slice(0, 16);
   };
 
-  // Set default end time to 1 hour after start time
   const defaultStart = getCurrentDatetime();
   const defaultEnd = new Date(new Date(defaultStart).getTime() + 60 * 60 * 1000)
     .toISOString()

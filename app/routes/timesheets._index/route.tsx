@@ -52,7 +52,6 @@ export default function TimesheetsPage() {
                 </thead>
                 <tbody>
                   {timesheetsAndEmployees.map((timesheet) => {
-                    // Calculate hours worked
                     const start = new Date(timesheet.start_time);
                     const end = new Date(timesheet.end_time);
                     const hours = ((end.getTime() - start.getTime()) / (1000 * 60 * 60)).toFixed(2);
