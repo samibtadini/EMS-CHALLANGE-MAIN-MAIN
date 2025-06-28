@@ -1,0 +1,47 @@
+{
+  "name": "ems-challenge",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "react-router build",
+    "dev": "react-router dev",
+    "start": "react-router-serve ./build/server/index.js",
+    "typecheck": "react-router typegen && tsc",
+    "setup_db": "node ./scripts/setup_db.js",
+    "seed": "node ./scripts/seed.js"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "@react-router/fs-routes": "^7.1.5",
+    "@react-router/node": "^7.1.5",
+    "@react-router/serve": "^7.1.5",
+    "@schedule-x/drag-and-drop": "^2.34.0",
+    "@schedule-x/event-modal": "^2.34.0",
+    "@schedule-x/events-service": "^2.34.0",
+    "@schedule-x/react": "^2.34.0",
+    "@schedule-x/theme-default": "^2.34.0",
+    "bootstrap": "^5.3.7",
+    "isbot": "^5.1.17",
+    "js-yaml": "^4.1.0",
+    "react": "^19.0.0",
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "^19.0.0",
+    "react-router": "^7.1.5",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "@react-router/dev": "^7.1.5",
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.19.1",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.1",
+    "@types/uuid": "^10.0.0",
+    "react-router-devtools": "^1.1.0",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.3",
+    "vite": "^7.0.0",
+    "vite-tsconfig-paths": "^5.1.4"
+  }
+}
